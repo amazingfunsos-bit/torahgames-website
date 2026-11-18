@@ -1,0 +1,345 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Torah Games</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M16 42V18Q16 8 32 8T48 18V42Z' fill='%23F4B92F' stroke='%23B9861A' stroke-width='2'/%3E%3Cpath d='M20 41V20Q20 12 32 12T44 20V41Z' fill='%23E8495E'/%3E%3Ccircle cx='27' cy='25' r='2.4' fill='%2316221f'/%3E%3Ccircle cx='37' cy='25' r='2.4' fill='%2316221f'/%3E%3Cpath d='M28 31q4 3 8 0' stroke='%2316221f' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3Crect x='8' y='38' width='48' height='11' rx='5.5' fill='%23E8495E' stroke='%23B33447' stroke-width='2'/%3E%3Crect x='13' y='48' width='38' height='7' rx='2' fill='%23F4B92F'/%3E%3Crect x='15' y='54' width='6' height='6' rx='2' fill='%23B9861A'/%3E%3Crect x='43' y='54' width='6' height='6' rx='2' fill='%23B9861A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Rubik:wght@400;500;600&display=swap">
+<style>
+/* Layout: teal velvet banner holding the throne logo, then a grid of big game tiles (the "throne room"). */
+:root{
+  --bg:#EEF4F2; --card:#FFFFFF; --ink:#13231F; --muted:#56706A; --line:#C9D9D4;
+  --velvet:#0F5257; --velvet-ink:#F6FBF9; --gold:#F4B92F; --gold-dk:#B9861A; --ruby:#E8495E; --leaf:#1FA855;
+  --f-d:"Bagel Fat One","Arial Rounded MT Bold",system-ui,sans-serif;
+  --f-b:"Rubik",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B1513; --card:#13211E; --ink:#E6F1EE; --muted:#93ADA6; --line:#26403A;
+  --velvet:#0C3F43; --velvet-ink:#F6FBF9; --gold:#F4B92F; --gold-dk:#B9861A; --ruby:#EE5D70; --leaf:#22B25C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B1513; --card:#13211E; --ink:#E6F1EE; --muted:#93ADA6; --line:#26403A;
+  --velvet:#0C3F43; --velvet-ink:#F6FBF9; --gold:#F4B92F; --gold-dk:#B9861A; --ruby:#EE5D70; --leaf:#22B25C; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-b);font-size:15px;line-height:1.5}
+.band{background:var(--velvet);color:var(--velvet-ink);padding-block:22px 26px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  background-image:radial-gradient(circle at 12% 20%,rgba(244,185,47,.18) 0 2px,transparent 3px),radial-gradient(circle at 70% 70%,rgba(244,185,47,.14) 0 2px,transparent 3px);background-size:46px 46px,58px 58px}
+.band-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.logo{width:clamp(104px,26vw,140px);height:auto;flex:none;filter:drop-shadow(0 8px 14px rgba(0,0,0,.28))}
+.logo .wig{transform-origin:64px 22px;animation:wig 3s ease-in-out infinite}
+.logo .blink{transform-origin:64px 56px;animation:blink 4.5s infinite}
+@keyframes wig{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(6deg) translateY(-3px)}}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.brand{min-width:0}
+.brand h1{font-family:var(--f-d);font-weight:400;font-size:clamp(40px,10vw,68px);line-height:.95;margin:0;letter-spacing:.005em;text-wrap:balance}
+.brand h1 span{color:var(--gold)}
+.brand p{margin:6px 0 0;font-size:15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.share-hub{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.btn{font:600 14px var(--f-b);border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px;border-radius:12px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
+.btn:hover{border-color:var(--ink)}
+.btn.wa{background:var(--leaf);border-color:var(--leaf);color:#fff}
+.band .btn{background:transparent;color:var(--velvet-ink);border-color:rgba(246,251,249,.4)}
+.band .btn:hover{border-color:var(--velvet-ink)}
+.band .btn.wa{background:var(--leaf);border-color:var(--leaf)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+main{max-width:1080px;margin:0 auto;padding-block:22px 36px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:14px}
+main h2{font-family:var(--f-d);font-weight:400;font-size:26px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:14px}
+.game{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.play{display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--ink);border-radius:16px;padding:14px 8px 12px;background:var(--tint);transition:transform .15s}
+.play:hover{transform:translateY(-3px)}
+.play svg{width:96px;height:96px;border-radius:24px;box-shadow:0 8px 18px -6px rgba(0,0,0,.35)}
+.play b{font-family:var(--f-d);font-weight:400;font-size:21px;line-height:1.1;text-align:center;text-wrap:balance}
+.play .go{font:600 13px var(--f-b);letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--card);padding:6px 16px;border-radius:99px}
+.link{font-size:13px;color:var(--muted);text-align:center;margin:0;overflow-wrap:anywhere}
+.row{display:flex;gap:8px}
+.row .btn{flex:1 1 0;padding:8px 10px;font-size:13px;min-height:40px}
+.soon{border-style:dashed;justify-content:center;align-items:center;text-align:center;color:var(--muted);min-height:200px}
+.soon b{font-family:var(--f-d);font-weight:400;font-size:20px;color:var(--ink)}
+.btn.demo{background:var(--gold);border-color:var(--gold-dk);color:#13231F;width:100%}
+.vmodal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:16px}
+.vmodal[hidden]{display:none}
+.vbox{width:min(960px,100%);display:flex;flex-direction:column;gap:10px}
+.vbox video{width:100%;border-radius:14px;background:#000;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.vbar{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.toast{min-height:20px;margin:0;font-size:14px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.logo .wig,.logo .blink{animation:none}.play{transition:none}}
+
+:root{--cell:color-mix(in srgb,var(--velvet) 12%,var(--card))}
+.gpanel{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:18px;text-align:center;max-height:calc(100vh - 90px);overflow:auto}
+.gpanel h2{margin:0 0 4px}
+.hint{color:var(--muted);font-size:14px;margin:0 0 12px}
+.stat{font-weight:600;margin:8px 0}
+.gbtn{background:var(--ruby);color:#fff;border:0;border-radius:12px;padding:10px 20px;font:600 15px var(--f-b);cursor:pointer;margin-top:10px;min-height:44px}
+.gpanel canvas{max-width:100%;border-radius:12px;background:var(--cell);touch-action:none}
+.pad{display:grid;grid-template-columns:repeat(3,56px);gap:6px;justify-content:center;margin-top:10px}
+.pad button{height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--cell);color:var(--ink);font-size:20px;cursor:pointer}
+.mgrid{display:grid;gap:8px;margin:10px auto;max-width:360px}
+.cell{aspect-ratio:1;border-radius:12px;background:var(--cell);border:0;font-size:clamp(26px,9vw,40px);font-weight:700;color:var(--ink);cursor:pointer}
+#reactBox{height:200px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600;color:#fff;cursor:pointer;user-select:none;background:var(--velvet)}
+.hide{display:none}
+#gmodal .vbox{width:min(520px,100%)}
+</style>
+
+<header class="band">
+  <div class="band-in">
+    <svg class="logo" viewBox="0 0 128 128" role="img" aria-label="Torah Games logo: a smiling little golden throne with a red velvet seat and a tiny crown on top">
+      <ellipse cx="64" cy="121" rx="44" ry="5" fill="#000" opacity=".2"/>
+      <!-- legs -->
+      <rect x="30" y="104" width="12" height="13" rx="4" fill="#B9861A"/>
+      <rect x="86" y="104" width="12" height="13" rx="4" fill="#B9861A"/>
+      <!-- backrest -->
+      <path d="M30 84V42Q30 20 64 20T98 42V84Z" fill="#F4B92F" stroke="#B9861A" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M38 82V44Q38 28 64 28T90 44V82Z" fill="#E8495E"/>
+      <path d="M44 40Q50 32 60 31" stroke="#F58B9A" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- face -->
+      <g class="blink"><ellipse cx="54" cy="54" rx="4.6" ry="5.6" fill="#16221F"/><ellipse cx="74" cy="54" rx="4.6" ry="5.6" fill="#16221F"/>
+        <circle cx="55.8" cy="51.8" r="1.7" fill="#fff"/><circle cx="75.8" cy="51.8" r="1.7" fill="#fff"/></g>
+      <ellipse cx="46" cy="63" rx="5" ry="3" fill="#FFB3BE" opacity=".8"/><ellipse cx="82" cy="63" rx="5" ry="3" fill="#FFB3BE" opacity=".8"/>
+      <path d="M57 63q7 7 14 0" stroke="#16221F" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+      <!-- armrests -->
+      <rect x="18" y="70" width="12" height="30" rx="5" fill="#F4B92F" stroke="#B9861A" stroke-width="2.5"/>
+      <rect x="98" y="70" width="12" height="30" rx="5" fill="#F4B92F" stroke="#B9861A" stroke-width="2.5"/>
+      <rect x="12" y="62" width="24" height="12" rx="6" fill="#F4B92F" stroke="#B9861A" stroke-width="2.5"/>
+      <rect x="92" y="62" width="24" height="12" rx="6" fill="#F4B92F" stroke="#B9861A" stroke-width="2.5"/>
+      <circle cx="14" cy="68" r="4" fill="#4FC3E8"/><circle cx="114" cy="68" r="4" fill="#6CC743"/>
+      <!-- cushion -->
+      <rect x="24" y="78" width="80" height="20" rx="10" fill="#E8495E" stroke="#B33447" stroke-width="2.5"/>
+      <path d="M32 83Q64 78 96 83" stroke="#F58B9A" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="44" cy="90" r="2" fill="#B33447"/><circle cx="64" cy="91" r="2" fill="#B33447"/><circle cx="84" cy="90" r="2" fill="#B33447"/>
+      <!-- base -->
+      <rect x="26" y="96" width="76" height="11" rx="4" fill="#F4B92F" stroke="#B9861A" stroke-width="2.5"/>
+      <circle cx="64" cy="101.5" r="3" fill="#E8495E"/>
+      <!-- tiny crown -->
+      <g class="wig">
+        <path d="M49 24 46 7l9 7 9-11 9 11 9-7-3 17z" fill="#F4B92F" stroke="#B9861A" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="64" cy="17" r="2.6" fill="#E8495E"/><circle cx="54" cy="19" r="1.8" fill="#4FC3E8"/><circle cx="74" cy="19" r="1.8" fill="#6CC743"/>
+      </g>
+      <!-- sparkles -->
+      <path d="M108 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#FFE08A"/>
+      <path d="M18 34l1.4 3.6 3.6 1.4-3.6 1.4L18 44l-1.4-3.6L13 39l3.6-1.4z" fill="#FFE08A"/>
+    </svg>
+    <div class="brand">
+      <h1>Torah <span>Games</span></h1>
+      <p>For all ages</p>
+    </div>
+    <div class="share-hub">
+      <button class="btn" id="hubCopy" type="button">Copy link</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <h2>Pick a game</h2>
+  <div class="grid" id="grid"></div>
+  <p class="toast" id="toast" role="status"></p>
+  <div class="vmodal" id="gmodal" hidden><div class="vbox"><div id="gwrap">
+<section id="dreidel" class="gpanel hide"><h2>Dreidel Spin</h2>
+<p class="hint">Everyone antes 1 coin. Nun: nothing · Gimel: take the pot · Hey: take half · Shin: add 1.</p>
+<div class="stat">You: <span id="dMe">10</span> · CPU: <span id="dCpu">10</span> · Pot: <span id="dPot">0</span></div>
+<div id="dLetter" style="font-size:84px;line-height:1.1;font-family:'Times New Roman',serif;margin:6px 0">נ</div>
+<div class="stat" id="dMsg">Press Spin!</div><button class="gbtn" id="dBtn">Spin</button></section>
+<section id="latke" class="gpanel hide"><h2>Latke Flip</h2>
+<p class="hint">Tap Flip when the marker is in the green. It gets faster with every latke!</p>
+<div style="position:relative;height:34px;border-radius:10px;overflow:hidden;background:linear-gradient(90deg,#8a4b14 25%,#f4b92f 25% 42%,#1fa855 42% 58%,#f4b92f 58% 75%,#8a4b14 75%)"><div id="lMark" style="position:absolute;top:0;bottom:0;width:6px;background:#fff;left:0;transform:translateX(-50%)"></div></div>
+<div class="stat" id="lMsg">Press Start</div>
+<div class="stat">Latkes: <span id="lN">0</span>/10 · Score: <span id="lS">0</span></div>
+<button class="gbtn" id="lFlip">Flip!</button> <button class="gbtn" id="lStart" style="background:var(--velvet)">Start</button></section>
+<section id="memory" class="gpanel hide">
+    <h2>🕎 Yom Tov Memory</h2>
+    <p class="hint">Flip two cards. Find all the pairs.</p>
+    <div class="stat">Moves: <span id="mMoves">0</span></div>
+    <div class="mgrid" id="mGrid" style="grid-template-columns:repeat(4,1fr)"></div>
+    <button class="gbtn" id="mReset">New game</button>
+  </section>
+
+  
+<section id="trivia" class="gpanel hide"><h2>Jewish Trivia</h2>
+<p class="hint" id="qN"></p><div class="stat" id="qQ" style="font-size:18px"></div><div id="qOpts"></div><div class="stat" id="qMsg"></div></section>
+<section id="eM" class="gpanel hide"><h2 id="eMt"></h2><p class="hint" id="eMh"></p><div class="stat">Time: <span id="eMtime">10</span> · Taps: <span id="eMn">0</span></div><button class="gbtn" id="eMb" style="font-size:56px;padding:12px 28px"></button><div class="stat" id="eMr"></div><button class="gbtn" id="eMgo" style="background:var(--velvet)">Start</button></section>
+<section id="eW" class="gpanel hide"><h2 id="eWt"></h2><p class="hint" id="eWh"></p><div class="stat">Time: <span id="eWtime">20</span> · Score: <span id="eWs">0</span></div><div class="mgrid" id="eWg" style="grid-template-columns:repeat(3,1fr)"></div><div class="stat" id="eWr"></div><button class="gbtn" id="eWgo" style="background:var(--velvet)">Start</button></section>
+<section id="eT" class="gpanel hide"><h2 id="eTt"></h2><p class="hint" id="eTh"></p><div style="position:relative;height:34px;border-radius:10px;overflow:hidden;background:linear-gradient(90deg,#8a4b14 25%,#f4b92f 25% 42%,#1fa855 42% 58%,#f4b92f 58% 75%,#8a4b14 75%)"><div id="eTm" style="position:absolute;top:0;bottom:0;width:6px;background:#fff;left:0;transform:translateX(-50%)"></div></div><div class="stat" id="eTr"></div><div class="stat">Try <span id="eTn">0</span>/5 · Score <span id="eTs">0</span></div><button class="gbtn" id="eTb">Tap!</button> <button class="gbtn" id="eTgo" style="background:var(--velvet)">Start</button></section>
+<section id="eR" class="gpanel hide"><h2 id="eRt"></h2><p class="hint" id="eRh"></p><div id="eRb" style="height:200px;border-radius:14px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:20px;font-weight:600;color:#fff;cursor:pointer;user-select:none;background:var(--velvet)">Tap to start</div></section>
+</div><div class="vbar"><button class="btn" type="button" id="gclose">Close</button></div></div></div>
+</main>
+<script>
+(function(){
+const HUB=location.href.split('#')[0];
+const G=[
+{id:'dreidel',name:'Dreidel Spin',tint:'#DCEAFB',icon:'<rect width="48" height="48" rx="12" fill="#2f7de1"/><path d="M24 6v6M16 14h16l4 8-12 20-12-20z" fill="#F4B92F" stroke="#B9861A" stroke-width="2" stroke-linejoin="round"/><text x="24" y="29" text-anchor="middle" font-size="14" font-weight="700" fill="#13231F" font-family="Times New Roman,serif">ש</text>'},
+{id:'latke',name:'Latke Flip',tint:'#F5E2CF',icon:'<rect width="48" height="48" rx="12" fill="#8a4b14"/><circle cx="22" cy="26" r="14" fill="#2a2f42"/><circle cx="22" cy="26" r="10.5" fill="#F4B92F"/><circle cx="18" cy="23" r="2" fill="#B9861A"/><circle cx="26" cy="29" r="2" fill="#B9861A"/><path d="M35 31l9 8" stroke="#2a2f42" stroke-width="4" stroke-linecap="round"/>'},
+{id:'memory',name:'Yom Tov Memory',tint:'#D7EFFA',icon:'<rect width="48" height="48" rx="12" fill="#0F5257"/><rect x="8" y="9" width="17" height="22" rx="3" fill="#fff"/><rect x="23" y="18" width="17" height="22" rx="3" fill="#F4B92F"/><text x="16.5" y="26" text-anchor="middle" font-size="14">🕎</text>'},
+{id:'trivia',name:'Jewish Trivia',tint:'#F8DCE0',icon:'<rect width="48" height="48" rx="12" fill="#5A2FC2"/><text x="24" y="34" text-anchor="middle" font-size="28" fill="#fff">✡</text>'}
+];
+const NEW=[
+{id:'clean',e:'M',name:'Pesach Cleaning Frenzy',emoji:'🧹',bg:'#1FA855',tint:'#D5ECDF',hint:'Tap the broom for 10 seconds. Find every crumb!',ranks:['Still finding crumbs from 2019 🍞','Dusting like a pro','Spotless! Bubby is proud 🧹','Chametz has fled the country 🏆']},
+{id:'soup',e:'M',name:'Matzah Ball Eating Contest',emoji:'🥣',bg:'#E8B84A',tint:'#F6E7BF',hint:'Tap the bowl as fast as you can. Bubby says EAT!',ranks:['A polite sip. Slow down!','Soup everywhere 🥣','Bubby says: you ate, now eat more!','Matzah ball champion of the world 🏆']},
+{id:'grogger',e:'M',name:'Grogger Frenzy',emoji:'🔊',bg:'#5A2FC2',tint:'#E4DAF7',hint:'Make as much noise as possible when Haman’s name is read!',ranks:['Hardly audible 🤫','The neighbors noticed','Haman can’t hear a thing! 🔊','Evacuate the shul! Maximum noise 🏆']},
+{id:'afikoman',e:'W',name:'Afikoman Hunt',emoji:'🫓',bg:'#C99159',tint:'#F5E2CF',hint:'Tap the afikoman! Don’t touch the chametz bread!',good:'🫓',bad:'🍞',yes:'Found it! Name your prize 🎁',no:'CHAMETZ! −2 and a lecture',ranks:['The kids hid it too well 🙈','Sneaky sneaky','Afikoman detective 🕵️','Master of the hunt! Prize secured 🏆']},
+{id:'kugel',e:'W',name:'Kugel Whack',emoji:'🥘',bg:'#d48a3c',tint:'#F3EAD7',hint:'Grab the kugel! Nobody wants salad on Shabbos.',good:'🥘',bad:'🥗',yes:'Yum! Seconds please',no:'Salad?! −2 and a sad face',ranks:['Still hungry 😢','A decent plate','Kugel connoisseur','The kugel is yours. All of it 🏆']},
+{id:'haman',e:'W',name:'Boo Haman!',emoji:'😈',bg:'#C3122F',tint:'#F8DCE0',hint:'Boo Haman! But never boo Queen Esther!',good:'😈',bad:'👑',yes:'Boooo! 📢',no:'That’s Queen Esther!! −2',ranks:['Haman wasn’t scared 😴','Getting louder','Haman is trembling','Haman is blotted out! Happy Purim 🏆']},
+{id:'challah',e:'T',name:'Perfect Challah Bake',emoji:'🍞',bg:'#B9861A',tint:'#F6E7BF',hint:'Tap when the challah is perfectly golden. Too early is doughy, too late is charcoal!',perfect:'Golden and braided to perfection ✨',ok:'Pretty good challah',low:'Still raw dough! 😬',high:'Burnt! The smoke alarm is singing 🔥',ranks:['Shabbos is takeout this week 🍕','Edible!','Bubby would approve 👵','Challah champion! 🏆']},
+{id:'kiddush',e:'T',name:'Kiddush Pour',emoji:'🍷',bg:'#8E1B3A',tint:'#F8DCE0',hint:'Tap to stop pouring right at the brim of the cup.',perfect:'Exactly to the brim, not a drop spilled 🍷',ok:'A little extra, nobody noticed',low:'That’s a thimble of wine 🤏',high:'Wine on the tablecloth! 💦',ranks:['Bring paper towels','Barely a kiddush','Steady hands!','Kiddush master 🏆']},
+{id:'brisket',e:'T',name:'Brisket Timer',emoji:'🥩',bg:'#7a2e1d',tint:'#F5E2CF',hint:'Tap when the brisket is perfectly done. Not too tough, not too dry!',perfect:'Fork-tender perfection ✨',ok:'Pretty good brisket',low:'Still tough as a shoe 👞',high:'Dry as matzah! 🔥',ranks:['Order pizza 🍕','The gravy saved it','Seconds for everyone!','Brisket legend 🏆']},
+{id:'doors',e:'R',name:'Kiddush Doors',emoji:'🍰',bg:'#E8495E',tint:'#F8DCE0',hint:'Wait for the doors to open, then tap before the kugel is gone!'}
+];
+NEW.forEach(n=>G.push({...n,icon:'<rect width="48" height="48" rx="12" fill="'+n.bg+'"/><text x="24" y="34" text-anchor="middle" font-size="28">'+n.emoji+'</text>'}));
+const toast=document.getElementById('toast');let tt;
+function say(m){toast.textContent=m;clearTimeout(tt);tt=setTimeout(()=>toast.textContent='',2600)}
+function copy(t){
+  const done=()=>say('Link copied: '+t);
+  try{navigator.clipboard.writeText(t).then(done,fb)}catch(e){fb()}
+  function fb(){const i=document.createElement('input');i.value=t;document.body.appendChild(i);i.select();try{document.execCommand('copy')}catch(e){}i.remove();done()}
+}
+const wa=(m,l)=>'https://wa.me/?text='+encodeURIComponent(m+' '+l);
+const grid=document.getElementById('grid');
+G.forEach(g=>{
+  const link=HUB+'#'+g.id;
+  const el=document.createElement('section');el.className='game';
+  el.innerHTML=`<a class="play" style="--tint:${g.tint}" href="#${g.id}" data-open="${g.id}"><svg viewBox="0 0 48 48" aria-hidden="true">${g.icon}</svg><b>${g.name}</b><span class="go">Play</span></a>
+  <div class="row"><button class="btn" type="button" data-copy="${link}">Copy link</button></div>`;
+  grid.appendChild(el);
+});
+const soon=document.createElement('section');soon.className='game soon';
+soon.innerHTML='<b>More games coming</b><span>New ones get a seat on the throne here.</span>';grid.appendChild(soon);
+const darkQ=matchMedia('(prefers-color-scheme: dark)');
+function tintFix(){const th=document.documentElement.dataset.theme;const dark=th==='dark'||(th!=='light'&&darkQ.matches);
+  document.querySelectorAll('.play').forEach(a=>a.style.background=dark?'color-mix(in srgb, '+a.style.getPropertyValue('--tint')+' 14%, transparent)':'')}
+tintFix();try{darkQ.addEventListener('change',tintFix)}catch(e){}
+
+
+const $=id=>document.getElementById(id);
+const DL=[["נ","Nun: nothing happens"],["ג","Gimel: takes the pot!"],["ה","Hey: takes half the pot"],["ש","Shin: adds one coin"]];
+let D,dBusy=false;
+function dUpd(){$("dMe").textContent=D.me;$("dCpu").textContent=D.cpu;$("dPot").textContent=D.pot}
+function dNew(){D={me:10,cpu:10,pot:0};dBusy=false;$("dBtn").textContent="Spin";$("dMsg").textContent="Press Spin!";dUpd()}
+function dSpin(cb){const el=$("dLetter");let n=0;const iv=setInterval(()=>{el.textContent=DL[Math.floor(Math.random()*4)][0];if(++n>9){clearInterval(iv);const i=Math.floor(Math.random()*4);el.textContent=DL[i][0];cb(i)}},70)}
+function dApply(k,i){if(i===1){D[k]+=D.pot;D.pot=0}else if(i===2){const h=Math.ceil(D.pot/2);D[k]+=h;D.pot-=h}else if(i===3&&D[k]>0){D[k]--;D.pot++}}
+$("dBtn").onclick=()=>{
+  if(dBusy)return;
+  if(D.me<1||D.cpu<1){dNew();return}
+  dBusy=true;D.me--;D.cpu--;D.pot+=2;dUpd();
+  dSpin(i=>{dApply("me",i);dUpd();$("dMsg").textContent="You: "+DL[i][1];
+    setTimeout(()=>dSpin(j=>{dApply("cpu",j);dUpd();$("dMsg").textContent="You: "+DL[i][1]+" · CPU: "+DL[j][1];dBusy=false;
+      if(D.me<1||D.cpu<1){$("dMsg").textContent=D.me>D.cpu?"You win! 🎉":D.me<D.cpu?"CPU wins this time":"Tie game";$("dBtn").textContent="New game"}
+    }),700)});
+};
+dNew();
+
+let lP=0,lD=1,lT=null,lSc=0,lN=0;
+function lStop(){clearInterval(lT);lT=null}
+$("lStart").onclick=()=>{lStop();lP=0;lD=1;lSc=0;lN=0;$("lN").textContent=0;$("lS").textContent=0;$("lMsg").textContent="Go!";
+  lT=setInterval(()=>{lP+=lD*(1.4+lN*0.25);if(lP>=100){lP=100;lD=-1}else if(lP<=0){lP=0;lD=1}$("lMark").style.left=lP+"%"},16)};
+$("lFlip").onclick=()=>{
+  if(!lT)return;const d=Math.abs(lP-50);let m;
+  if(d<8){lSc+=3;m="Perfect, golden brown! ✨"}else if(d<25){lSc+=1;m="Pretty good"}else{m=lP<50?"Still raw!":"Burnt! 🔥"}
+  lN++;$("lN").textContent=lN;$("lS").textContent=lSc;
+  if(lN>=10){lStop();m+=" · All done! "+lSc+"/30"}
+  $("lMsg").textContent=m;
+};
+
+/* ---------- MEMORY ---------- */
+const mG=document.getElementById("mGrid");let mFirst=null,mLock=false,mMoves=0,mLeft=0;
+function memStart(){
+  const e=["🕎","🍷","🍞","🍎","🍯","📜","📯","🍋"];const d=[...e,...e].sort(()=>Math.random()-.5);
+  mG.innerHTML="";mMoves=0;mLeft=8;mFirst=null;mLock=false;document.getElementById("mMoves").textContent=0;
+  d.forEach(v=>{const c=document.createElement("button");c.className="cell";c.dataset.v=v;c.textContent="?";
+    c.onclick=()=>{
+      if(mLock||c.disabled||c===mFirst)return;c.textContent=v;
+      if(!mFirst){mFirst=c;return}
+      mMoves++;document.getElementById("mMoves").textContent=mMoves;
+      if(mFirst.dataset.v===v){mFirst.disabled=c.disabled=true;mFirst.style.opacity=c.style.opacity=.55;mFirst=null;
+        if(--mLeft===0)document.getElementById("mMoves").textContent=mMoves+" · You win! 🎉"}
+      else{mLock=true;const a=mFirst;setTimeout(()=>{a.textContent="?";c.textContent="?";mFirst=null;mLock=false},700)}
+    };mG.appendChild(c)});
+}
+document.getElementById("mReset").onclick=memStart;memStart();
+
+
+const TQ=[
+["What do we blow on Rosh Hashanah?",["A trumpet","A shofar","A flute"],1],
+["How many branches does a chanukiah have?",["7","8","9"],2],
+["What do we eat on Rosh Hashanah for a sweet year?",["Apples and honey","Pizza","Ice cream"],0],
+["Which megillah do we read on Purim?",["Megillas Esther","Megillas Rus","Eicha"],0],
+["Who led the Jewish people out of Egypt?",["Avraham","Moshe","Dovid"],1],
+["What do we eat on Pesach instead of bread?",["Matzah","Challah","Bagels"],0],
+["How many days of Creation came before Shabbos?",["Five","Six","Seven"],1],
+["What do we build and eat in on Sukkos?",["A sukkah","A castle","A boat"],0]
+];
+let qI=0,qS=0,qLock=false;
+function qShow(){
+  const o=$("qOpts");o.innerHTML="";
+  if(qI>=TQ.length){$("qN").textContent="";$("qMsg").textContent="";$("qQ").textContent="You got "+qS+" out of "+TQ.length+(qS===TQ.length?" 🎉 Amazing!":"");
+    const b=document.createElement("button");b.className="gbtn";b.textContent="Play again";b.onclick=()=>{qI=0;qS=0;qShow()};o.appendChild(b);return}
+  const q=TQ[qI];$("qN").textContent="Question "+(qI+1)+" of "+TQ.length;$("qQ").textContent=q[0];$("qMsg").textContent="";qLock=false;
+  q[1].forEach((t,i)=>{const b=document.createElement("button");b.className="gbtn";b.style.cssText="display:block;width:100%";b.textContent=t;
+    b.onclick=()=>{if(qLock)return;qLock=true;
+      if(i===q[2]){qS++;b.style.background="var(--leaf)";$("qMsg").textContent="Correct! ✅"}
+      else{b.style.background="#777";o.children[q[2]].style.background="var(--leaf)";$("qMsg").textContent="Not quite"}
+      setTimeout(()=>{qI++;qShow()},1100)};o.appendChild(b)});
+}
+qShow();
+
+let M={t:null,n:0,left:0,c:null};
+function mSetup(c){clearInterval(M.t);M.t=null;M.c=c;M.n=0;$("eMt").textContent=c.name;$("eMh").textContent=c.hint;$("eMb").textContent=c.emoji;$("eMn").textContent=0;$("eMtime").textContent=10;$("eMr").textContent="Press Start, then tap like crazy!";$("eMgo").textContent="Start"}
+$("eMgo").onclick=()=>{clearInterval(M.t);M.n=0;M.left=10;$("eMn").textContent=0;$("eMtime").textContent=10;$("eMr").textContent="GO!";
+  M.t=setInterval(()=>{M.left--;$("eMtime").textContent=M.left;if(M.left<=0){clearInterval(M.t);M.t=null;$("eMr").textContent=M.n+" taps: "+M.c.ranks[Math.min(3,Math.floor(M.n/15))];$("eMgo").textContent="Again"}},1000)};
+$("eMb").onclick=()=>{if(M.t){M.n++;$("eMn").textContent=M.n}};
+
+let W={c:null,t:null,p:null,left:0,s:0,cur:-1,good:true};
+function wStop(){clearInterval(W.t);clearInterval(W.p);W.t=W.p=null}
+function wDraw(){const g=$("eWg");g.innerHTML="";for(let i=0;i<9;i++){const b=document.createElement("button");b.className="cell";b.onclick=()=>wHit(i);g.appendChild(b)}}
+function wSetup(c){wStop();W.c=c;W.s=0;W.cur=-1;$("eWt").textContent=c.name;$("eWh").textContent=c.hint;$("eWs").textContent=0;$("eWtime").textContent=20;$("eWr").textContent="Press Start";$("eWgo").textContent="Start";wDraw()}
+function wHit(i){if(!W.t||i!==W.cur)return;W.s+=W.good?1:-2;$("eWs").textContent=W.s;$("eWr").textContent=W.good?W.c.yes:W.c.no;W.cur=-1;$("eWg").children[i].textContent=""}
+function wPop(){const k=$("eWg").children;if(W.cur>=0)k[W.cur].textContent="";W.cur=Math.floor(Math.random()*9);W.good=Math.random()<.7;k[W.cur].textContent=W.good?W.c.good:W.c.bad}
+$("eWgo").onclick=()=>{wStop();W.s=0;W.left=20;$("eWs").textContent=0;$("eWtime").textContent=20;$("eWr").textContent="Go!";
+  W.p=setInterval(wPop,750);
+  W.t=setInterval(()=>{W.left--;$("eWtime").textContent=W.left;if(W.left<=0){wStop();W.cur=-1;wDraw();$("eWr").textContent="Final: "+W.s+" · "+W.c.ranks[Math.max(0,Math.min(3,Math.floor(W.s/6)))];$("eWgo").textContent="Again"}},1000)};
+
+let T={t:null,p:0,d:1,n:0,s:0,c:null};
+function tStop(){clearInterval(T.t);T.t=null}
+function tSetup(c){tStop();T.c=c;T.n=0;T.s=0;$("eTt").textContent=c.name;$("eTh").textContent=c.hint;$("eTn").textContent=0;$("eTs").textContent=0;$("eTr").textContent="Press Start";$("eTm").style.left="0%"}
+$("eTgo").onclick=()=>{tStop();T.p=0;T.d=1;T.n=0;T.s=0;$("eTn").textContent=0;$("eTs").textContent=0;$("eTr").textContent="Go!";
+  T.t=setInterval(()=>{T.p+=T.d*(1.4+T.n*0.4);if(T.p>=100){T.p=100;T.d=-1}else if(T.p<=0){T.p=0;T.d=1}$("eTm").style.left=T.p+"%"},16)};
+$("eTb").onclick=()=>{
+  if(!T.t)return;const d=Math.abs(T.p-50),c=T.c;let m;
+  if(d<8){T.s+=3;m=c.perfect}else if(d<25){T.s+=1;m=c.ok}else m=T.p<50?c.low:c.high;
+  T.n++;$("eTn").textContent=T.n;$("eTs").textContent=T.s;
+  if(T.n>=5){tStop();m+=" · Final "+T.s+"/15: "+c.ranks[T.s<4?0:T.s<8?1:T.s<12?2:3]}
+  $("eTr").textContent=m};
+
+let R={st:"idle",to:null,t0:0};
+function rSetup(c){clearTimeout(R.to);R.st="idle";$("eRt").textContent=c.name;$("eRh").textContent=c.hint;$("eRb").style.background="var(--velvet)";$("eRb").textContent="Tap to start"}
+$("eRb").onclick=()=>{
+  const b=$("eRb");
+  if(R.st==="idle"){R.st="wait";b.style.background="#d33";b.textContent="🚪 Doors still closed… wait for it";
+    R.to=setTimeout(()=>{R.st="go";b.style.background="#1fa855";b.textContent="🥘 THE KUGEL IS OUT! TAP!";R.t0=performance.now()},1200+Math.random()*2500)}
+  else if(R.st==="wait"){clearTimeout(R.to);R.st="idle";b.style.background="var(--velvet)";b.textContent="Too early! The door was still closed 🚪 Tap to retry"}
+  else{const ms=Math.round(performance.now()-R.t0);R.st="idle";b.style.background="var(--velvet)";
+    b.textContent=ms+" ms · "+(ms<250?"Front of the line! 🏆":ms<400?"You got a plate 🍽️":ms<700?"Cake’s gone, only herring left 🐟":"Kiddush is over. Everyone went home 🚪")+" (tap to retry)"}
+};
+function eStop(){clearInterval(M.t);M.t=null;wStop();tStop();clearTimeout(R.to);R.st="idle"}
+
+const modal=$("gmodal");
+function openGame(id){
+  const x=G.find(g=>g.id===id);if(!x)return;
+  eStop();
+  ["dreidel","latke","memory","trivia","eM","eW","eT","eR"].forEach(s=>$(s).classList.toggle("hide",s!==(x.e?"e"+x.e:id)));
+  if(x.e==="M")mSetup(x);else if(x.e==="W")wSetup(x);else if(x.e==="T")tSetup(x);else if(x.e==="R")rSetup(x);
+  modal.hidden=false;
+}
+function closeGame(){lStop();eStop();modal.hidden=true;try{history.replaceState(null,"",HUB)}catch(e){}}
+$("gclose").onclick=closeGame;
+modal.addEventListener("click",e=>{if(e.target===modal)closeGame()});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!modal.hidden)closeGame()});
+grid.addEventListener("click",e=>{
+  const b=e.target.closest("[data-copy]");if(b){copy(b.dataset.copy);return}
+  const o=e.target.closest("[data-open]");if(o){e.preventDefault();try{history.replaceState(null,"",HUB+"#"+o.dataset.open)}catch(_){}openGame(o.dataset.open)}
+});
+function route(){const h=location.hash.slice(1);if(h)openGame(h);else if(!modal.hidden)closeGame()}
+addEventListener("hashchange",route);route();
+document.getElementById('hubCopy').onclick=()=>copy(HUB);
+})();
+</script>
+</body></html>
