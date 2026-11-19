@@ -80,6 +80,13 @@ main h2{font-family:var(--f-d);font-weight:400;font-size:26px;margin:0}
 #reactBox{height:200px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600;color:#fff;cursor:pointer;user-select:none;background:var(--velvet)}
 .hide{display:none}
 #gmodal .vbox{width:min(520px,100%)}
+#gmodal{position:static;background:none;padding:0;display:block;overflow:visible;z-index:auto}
+#gmodal[hidden]{display:none}
+#gmodal .vbox{width:100%;max-width:760px;margin:0 auto}
+.gpanel{max-height:none;overflow:visible}
+.mgrid{max-width:460px}
+body.ingame .band{display:none}
+main{padding-top:14px}
 </style>
 
 <header class="band">
@@ -131,25 +138,19 @@ main h2{font-family:var(--f-d);font-weight:400;font-size:26px;margin:0}
 </header>
 
 <main>
-  <h2>Pick a game</h2>
+  <h2 id="hubh">Pick a game</h2>
   <div class="grid" id="grid"></div>
   <p class="toast" id="toast" role="status"></p>
-  <div class="vmodal" id="gmodal" hidden><div class="vbox"><div id="gwrap">
+  <div class="vmodal" id="gmodal" hidden><div class="vbox"><div class="vbar" style="justify-content:flex-start"><button class="btn" type="button" id="gclose">← All games</button></div><div id="gwrap">
 <section id="dreidel" class="gpanel hide"><h2>Dreidel Spin</h2>
 <p class="hint">Everyone antes 1 coin. Nun: nothing · Gimel: take the pot · Hey: take half · Shin: add 1.</p>
 <div class="stat">You: <span id="dMe">10</span> · CPU: <span id="dCpu">10</span> · Pot: <span id="dPot">0</span></div>
 <div id="dLetter" style="font-size:84px;line-height:1.1;font-family:'Times New Roman',serif;margin:6px 0">נ</div>
 <div class="stat" id="dMsg">Press Spin!</div><button class="gbtn" id="dBtn">Spin</button></section>
-<section id="latke" class="gpanel hide"><h2>Latke Flip</h2>
-<p class="hint">Tap Flip when the marker is in the green. It gets faster with every latke!</p>
-<div style="position:relative;height:34px;border-radius:10px;overflow:hidden;background:linear-gradient(90deg,#8a4b14 25%,#f4b92f 25% 42%,#1fa855 42% 58%,#f4b92f 58% 75%,#8a4b14 75%)"><div id="lMark" style="position:absolute;top:0;bottom:0;width:6px;background:#fff;left:0;transform:translateX(-50%)"></div></div>
-<div class="stat" id="lMsg">Press Start</div>
-<div class="stat">Latkes: <span id="lN">0</span>/10 · Score: <span id="lS">0</span></div>
-<button class="gbtn" id="lFlip">Flip!</button> <button class="gbtn" id="lStart" style="background:var(--velvet)">Start</button></section>
 <section id="memory" class="gpanel hide">
     <h2>🕎 Yom Tov Memory</h2>
     <p class="hint">Flip two cards. Find all the pairs.</p>
-    <div class="stat">Moves: <span id="mMoves">0</span></div>
+    <div class="stat">Level <span id="mLv">1</span> · Moves: <span id="mMoves">0</span> · Best level: <span id="mBest">1</span></div>
     <div class="mgrid" id="mGrid" style="grid-template-columns:repeat(4,1fr)"></div>
     <button class="gbtn" id="mReset">New game</button>
   </section>
@@ -157,25 +158,25 @@ main h2{font-family:var(--f-d);font-weight:400;font-size:26px;margin:0}
   
 <section id="trivia" class="gpanel hide"><h2>Jewish Trivia</h2>
 <p class="hint" id="qN"></p><div class="stat" id="qQ" style="font-size:18px"></div><div id="qOpts"></div><div class="stat" id="qMsg"></div></section>
-<section id="eM" class="gpanel hide"><h2 id="eMt"></h2><p class="hint" id="eMh"></p><div class="stat">Time: <span id="eMtime">10</span> · Taps: <span id="eMn">0</span></div><button class="gbtn" id="eMb" style="font-size:56px;padding:12px 28px"></button><div class="stat" id="eMr"></div><button class="gbtn" id="eMgo" style="background:var(--velvet)">Start</button></section>
-<section id="eW" class="gpanel hide"><h2 id="eWt"></h2><p class="hint" id="eWh"></p><div class="stat">Time: <span id="eWtime">20</span> · Score: <span id="eWs">0</span></div><div class="mgrid" id="eWg" style="grid-template-columns:repeat(3,1fr)"></div><div class="stat" id="eWr"></div><button class="gbtn" id="eWgo" style="background:var(--velvet)">Start</button></section>
-<section id="eT" class="gpanel hide"><h2 id="eTt"></h2><p class="hint" id="eTh"></p><div style="position:relative;height:34px;border-radius:10px;overflow:hidden;background:linear-gradient(90deg,#8a4b14 25%,#f4b92f 25% 42%,#1fa855 42% 58%,#f4b92f 58% 75%,#8a4b14 75%)"><div id="eTm" style="position:absolute;top:0;bottom:0;width:6px;background:#fff;left:0;transform:translateX(-50%)"></div></div><div class="stat" id="eTr"></div><div class="stat">Try <span id="eTn">0</span>/5 · Score <span id="eTs">0</span></div><button class="gbtn" id="eTb">Tap!</button> <button class="gbtn" id="eTgo" style="background:var(--velvet)">Start</button></section>
+<section id="eC" class="gpanel hide"><h2 id="eCt"></h2><p class="hint" id="eCh"></p><div class="stat">Score: <span id="eCs">0</span> · Lives: <span id="eCl"></span> · Best: <span id="eCb">0</span></div><div><button class="gbtn" id="eCgo" style="background:var(--velvet);margin:0 0 8px">Start</button></div><div class="stat" id="eCr"></div><canvas id="eCc" width="320" height="440" style="width:100%;max-width:300px"></canvas></section>
+<section id="eW" class="gpanel hide"><h2 id="eWt"></h2><p class="hint" id="eWh"></p><div class="stat">Time: <span id="eWtime">25</span> · Score: <span id="eWs">0</span> · Combo ×<span id="eWc">1</span> · Best: <span id="eWb">0</span></div><div><button class="gbtn" id="eWgo" style="background:var(--velvet);margin:0 0 8px">Start</button></div><div class="stat" id="eWr"></div><div class="mgrid" id="eWg" style="grid-template-columns:repeat(3,1fr);max-width:300px"></div></section>
+<section id="eT" class="gpanel hide"><h2 id="eTt"></h2><p class="hint" id="eTh"></p><div id="eTbar" style="position:relative;height:38px;border-radius:10px;overflow:hidden"><div id="eTm" style="position:absolute;top:0;bottom:0;width:6px;background:#fff;left:0;transform:translateX(-50%)"></div></div><div class="stat" id="eTr"></div><div class="stat">Round <span id="eTn">0</span>/8 · Score <span id="eTs">0</span> · Streak 🔥<span id="eTst">0</span> · Best <span id="eTb2">0</span></div><button class="gbtn" id="eTb" style="font-size:22px;padding:14px 44px">Tap!</button> <button class="gbtn" id="eTgo" style="background:var(--velvet)">Start</button></section>
 <section id="eR" class="gpanel hide"><h2 id="eRt"></h2><p class="hint" id="eRh"></p><div id="eRb" style="height:200px;border-radius:14px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:20px;font-weight:600;color:#fff;cursor:pointer;user-select:none;background:var(--velvet)">Tap to start</div></section>
-</div><div class="vbar"><button class="btn" type="button" id="gclose">Close</button></div></div></div>
+</div></div></div>
 </main>
 <script>
 (function(){
 const HUB=location.href.split('#')[0];
 const G=[
 {id:'dreidel',name:'Dreidel Spin',tint:'#DCEAFB',icon:'<rect width="48" height="48" rx="12" fill="#2f7de1"/><path d="M24 6v6M16 14h16l4 8-12 20-12-20z" fill="#F4B92F" stroke="#B9861A" stroke-width="2" stroke-linejoin="round"/><text x="24" y="29" text-anchor="middle" font-size="14" font-weight="700" fill="#13231F" font-family="Times New Roman,serif">ש</text>'},
-{id:'latke',name:'Latke Flip',tint:'#F5E2CF',icon:'<rect width="48" height="48" rx="12" fill="#8a4b14"/><circle cx="22" cy="26" r="14" fill="#2a2f42"/><circle cx="22" cy="26" r="10.5" fill="#F4B92F"/><circle cx="18" cy="23" r="2" fill="#B9861A"/><circle cx="26" cy="29" r="2" fill="#B9861A"/><path d="M35 31l9 8" stroke="#2a2f42" stroke-width="4" stroke-linecap="round"/>'},
+{id:'latke',e:'T',emoji:'🥔',hint:'Tap when the latke is perfectly golden.',perfect:'Golden and crispy ✨',ok:'Pretty good latke',low:'Still raw inside! 😬',high:'Burnt! 🔥',ranks:['Order sufganiyot instead 🍩','Edible with applesauce','Crispy and delicious','Latke master! 🏆'],name:'Latke Flip',tint:'#F5E2CF',icon:'<rect width="48" height="48" rx="12" fill="#8a4b14"/><circle cx="22" cy="26" r="14" fill="#2a2f42"/><circle cx="22" cy="26" r="10.5" fill="#F4B92F"/><circle cx="18" cy="23" r="2" fill="#B9861A"/><circle cx="26" cy="29" r="2" fill="#B9861A"/><path d="M35 31l9 8" stroke="#2a2f42" stroke-width="4" stroke-linecap="round"/>'},
 {id:'memory',name:'Yom Tov Memory',tint:'#D7EFFA',icon:'<rect width="48" height="48" rx="12" fill="#0F5257"/><rect x="8" y="9" width="17" height="22" rx="3" fill="#fff"/><rect x="23" y="18" width="17" height="22" rx="3" fill="#F4B92F"/><text x="16.5" y="26" text-anchor="middle" font-size="14">🕎</text>'},
 {id:'trivia',name:'Jewish Trivia',tint:'#F8DCE0',icon:'<rect width="48" height="48" rx="12" fill="#5A2FC2"/><text x="24" y="34" text-anchor="middle" font-size="28" fill="#fff">✡</text>'}
 ];
 const NEW=[
-{id:'clean',e:'M',name:'Pesach Cleaning Frenzy',emoji:'🧹',bg:'#1FA855',tint:'#D5ECDF',hint:'Tap the broom for 10 seconds. Find every crumb!',ranks:['Still finding crumbs from 2019 🍞','Dusting like a pro','Spotless! Bubby is proud 🧹','Chametz has fled the country 🏆']},
-{id:'soup',e:'M',name:'Matzah Ball Eating Contest',emoji:'🥣',bg:'#E8B84A',tint:'#F6E7BF',hint:'Tap the bowl as fast as you can. Bubby says EAT!',ranks:['A polite sip. Slow down!','Soup everywhere 🥣','Bubby says: you ate, now eat more!','Matzah ball champion of the world 🏆']},
-{id:'grogger',e:'M',name:'Grogger Frenzy',emoji:'🔊',bg:'#5A2FC2',tint:'#E4DAF7',hint:'Make as much noise as possible when Haman’s name is read!',ranks:['Hardly audible 🤫','The neighbors noticed','Haman can’t hear a thing! 🔊','Evacuate the shul! Maximum noise 🏆']},
+{id:'clean',e:'C',name:'Pesach Cleaning Frenzy',emoji:'🧹',good:'🍞',bad:'🫓',bg:'#1FA855',tint:'#D5ECDF',hint:'Sweep up the falling chametz 🍞. Don’t sweep up the matzah 🫓 by mistake!',ranks:['Still finding crumbs from 2019 🍞','Dusting like a pro','Spotless! Bubby is proud 🧹','Chametz has fled the country 🏆']},
+{id:'soup',e:'C',name:'Matzah Ball Eating Contest',emoji:'😋',good:'🥣',bad:'🧦',bg:'#E8B84A',tint:'#F6E7BF',hint:'Open wide! Catch the matzah ball soup 🥣 but not the sock 🧦.',ranks:['A polite sip. Slow down!','Soup everywhere 🥣','Bubby says: you ate, now eat more!','Matzah ball champion of the world 🏆']},
+{id:'mishloach',e:'C',name:'Mishloach Manos Catch',emoji:'🧺',good:'🎁',bad:'🧅',bg:'#5A2FC2',tint:'#E4DAF7',hint:'Catch the mishloach manos 🎁! A rotten onion 🧅 ruins the basket.',ranks:['Hardly any baskets 🧺','A nice delivery','Everyone on the block says thank you','Mishloach Manos legend 🏆']},
 {id:'afikoman',e:'W',name:'Afikoman Hunt',emoji:'🫓',bg:'#C99159',tint:'#F5E2CF',hint:'Tap the afikoman! Don’t touch the chametz bread!',good:'🫓',bad:'🍞',yes:'Found it! Name your prize 🎁',no:'CHAMETZ! −2 and a lecture',ranks:['The kids hid it too well 🙈','Sneaky sneaky','Afikoman detective 🕵️','Master of the hunt! Prize secured 🏆']},
 {id:'kugel',e:'W',name:'Kugel Whack',emoji:'🥘',bg:'#d48a3c',tint:'#F3EAD7',hint:'Grab the kugel! Nobody wants salad on Shabbos.',good:'🥘',bad:'🥗',yes:'Yum! Seconds please',no:'Salad?! −2 and a sad face',ranks:['Still hungry 😢','A decent plate','Kugel connoisseur','The kugel is yours. All of it 🏆']},
 {id:'haman',e:'W',name:'Boo Haman!',emoji:'😈',bg:'#C3122F',tint:'#F8DCE0',hint:'Boo Haman! But never boo Queen Esther!',good:'😈',bad:'👑',yes:'Boooo! 📢',no:'That’s Queen Esther!! −2',ranks:['Haman wasn’t scared 😴','Getting louder','Haman is trembling','Haman is blotted out! Happy Purim 🏆']},
@@ -227,35 +228,28 @@ $("dBtn").onclick=()=>{
 };
 dNew();
 
-let lP=0,lD=1,lT=null,lSc=0,lN=0;
-function lStop(){clearInterval(lT);lT=null}
-$("lStart").onclick=()=>{lStop();lP=0;lD=1;lSc=0;lN=0;$("lN").textContent=0;$("lS").textContent=0;$("lMsg").textContent="Go!";
-  lT=setInterval(()=>{lP+=lD*(1.4+lN*0.25);if(lP>=100){lP=100;lD=-1}else if(lP<=0){lP=0;lD=1}$("lMark").style.left=lP+"%"},16)};
-$("lFlip").onclick=()=>{
-  if(!lT)return;const d=Math.abs(lP-50);let m;
-  if(d<8){lSc+=3;m="Perfect, golden brown! ✨"}else if(d<25){lSc+=1;m="Pretty good"}else{m=lP<50?"Still raw!":"Burnt! 🔥"}
-  lN++;$("lN").textContent=lN;$("lS").textContent=lSc;
-  if(lN>=10){lStop();m+=" · All done! "+lSc+"/30"}
-  $("lMsg").textContent=m;
-};
-
 /* ---------- MEMORY ---------- */
-const mG=document.getElementById("mGrid");let mFirst=null,mLock=false,mMoves=0,mLeft=0;
+function bestGet(k){try{return +localStorage.getItem("tg_"+k)||0}catch(e){return 0}}
+function bestSet(k,v){try{if(v>bestGet(k))localStorage.setItem("tg_"+k,v)}catch(e){}}
+const MEMO=["🕎","🍷","🍞","🍎","🍯","📜","📯","🍋","🥘","🕊️","🌿","⭐"];
+const mG=$("mGrid");let mLv=1,mFirst=null,mLock=false,mMoves=0,mLeft=0,mDone=false;
 function memStart(){
-  const e=["🕎","🍷","🍞","🍎","🍯","📜","📯","🍋"];const d=[...e,...e].sort(()=>Math.random()-.5);
-  mG.innerHTML="";mMoves=0;mLeft=8;mFirst=null;mLock=false;document.getElementById("mMoves").textContent=0;
-  d.forEach(v=>{const c=document.createElement("button");c.className="cell";c.dataset.v=v;c.textContent="?";
-    c.onclick=()=>{
-      if(mLock||c.disabled||c===mFirst)return;c.textContent=v;
-      if(!mFirst){mFirst=c;return}
-      mMoves++;document.getElementById("mMoves").textContent=mMoves;
-      if(mFirst.dataset.v===v){mFirst.disabled=c.disabled=true;mFirst.style.opacity=c.style.opacity=.55;mFirst=null;
-        if(--mLeft===0)document.getElementById("mMoves").textContent=mMoves+" · You win! 🎉"}
-      else{mLock=true;const a=mFirst;setTimeout(()=>{a.textContent="?";c.textContent="?";mFirst=null;mLock=false},700)}
-    };mG.appendChild(c)});
+  const n=Math.min(12,4+mLv*2),d=[...MEMO.slice(0,n),...MEMO.slice(0,n)].sort(()=>Math.random()-.5);
+  mG.innerHTML="";mG.style.gridTemplateColumns="repeat("+(n<=8?4:n<=10?5:6)+",1fr)";
+  mMoves=0;mLeft=n;mFirst=null;mLock=false;mDone=false;
+  $("mLv").textContent=mLv;$("mMoves").textContent=0;$("mBest").textContent=bestGet("memlv")||1;$("mReset").textContent="Restart level";
+  d.forEach(v=>{const b=document.createElement("button");b.className="cell";b.textContent="?";
+    b.onclick=()=>{
+      if(mLock||b.disabled||b===mFirst)return;b.textContent=v;
+      if(!mFirst){mFirst=b;return}
+      mMoves++;$("mMoves").textContent=mMoves;
+      if(mFirst.textContent===v){mFirst.disabled=b.disabled=true;mFirst.style.opacity=b.style.opacity=.5;mFirst=null;
+        if(--mLeft===0){mDone=true;bestSet("memlv",mLv);$("mBest").textContent=bestGet("memlv");$("mMoves").textContent=mMoves+" · Level cleared! 🎉";$("mReset").textContent=mLv<4?"Next level ▶":"Start over"}}
+      else{mLock=true;const a=mFirst;setTimeout(()=>{a.textContent="?";b.textContent="?";mFirst=null;mLock=false},650)}
+    };mG.appendChild(b)});
 }
-document.getElementById("mReset").onclick=memStart;memStart();
-
+$("mReset").onclick=()=>{if(mDone)mLv=mLv<4?mLv+1:1;memStart()};
+memStart();
 
 const TQ=[
 ["What do we blow on Rosh Hashanah?",["A trumpet","A shofar","A flute"],1],
@@ -265,79 +259,132 @@ const TQ=[
 ["Who led the Jewish people out of Egypt?",["Avraham","Moshe","Dovid"],1],
 ["What do we eat on Pesach instead of bread?",["Matzah","Challah","Bagels"],0],
 ["How many days of Creation came before Shabbos?",["Five","Six","Seven"],1],
-["What do we build and eat in on Sukkos?",["A sukkah","A castle","A boat"],0]
+["What do we build and eat in on Sukkos?",["A sukkah","A castle","A boat"],0],
+["How many Imahos (matriarchs) are there?",["Three","Four","Five"],1],
+["Which fruit is one of the Four Species?",["Etrog","Mango","Banana"],0],
+["What do we light on Friday before Shabbos?",["Candles","Fireworks","A campfire"],0],
+["Who built the Teivah (Ark)?",["Noach","Avraham","Yaakov"],0],
+["How many makkos did Hashem bring on Egypt?",["Seven","Ten","Twelve"],1],
+["On which Yom Tov do we spin a dreidel?",["Purim","Chanuka","Shavuos"],1],
+["What did Dovid use against Golyas?",["A sling and a stone","A sword","A spear"],0],
+["What is the first word in the Torah?",["Bereishis","Shemos","Vayikra"],0],
+["Who was swallowed by a big fish?",["Yonah","Moshe","Eliyahu"],0],
+["How many books are in the Chumash?",["Three","Five","Seven"],1],
+["Who was the first Jew?",["Avraham","Moshe","Noach"],0],
+["What do we do on Yom Kippur?",["Fast and daven","Have a barbecue","Go swimming"],0],
+["How many tribes (shevatim) are there?",["Ten","Twelve","Fourteen"],1],
+["What do we shake with the lulav on Sukkos?",["Hadassim and aravos","Pillows","Balloons"],0]
 ];
-let qI=0,qS=0,qLock=false;
+let qOrder=[],qI=0,qS=0,qStreak=0,qLock=false;
+function qNew(){qOrder=TQ.map((_,i)=>i).sort(()=>Math.random()-.5).slice(0,10);qI=0;qS=0;qStreak=0;qShow()}
 function qShow(){
   const o=$("qOpts");o.innerHTML="";
-  if(qI>=TQ.length){$("qN").textContent="";$("qMsg").textContent="";$("qQ").textContent="You got "+qS+" out of "+TQ.length+(qS===TQ.length?" 🎉 Amazing!":"");
-    const b=document.createElement("button");b.className="gbtn";b.textContent="Play again";b.onclick=()=>{qI=0;qS=0;qShow()};o.appendChild(b);return}
-  const q=TQ[qI];$("qN").textContent="Question "+(qI+1)+" of "+TQ.length;$("qQ").textContent=q[0];$("qMsg").textContent="";qLock=false;
-  q[1].forEach((t,i)=>{const b=document.createElement("button");b.className="gbtn";b.style.cssText="display:block;width:100%";b.textContent=t;
+  if(qI>=10){bestSet("trivia",qS);$("qN").textContent="Best: "+bestGet("trivia")+"/10";$("qMsg").textContent="";$("qQ").textContent="You got "+qS+" out of 10"+(qS===10?" 🎉 Amazing!":qS>=7?" 👏 Great job!":" 📚 Keep learning!");
+    const b=document.createElement("button");b.className="gbtn";b.textContent="Play again";b.onclick=qNew;o.appendChild(b);return}
+  const q=TQ[qOrder[qI]];$("qN").textContent="Question "+(qI+1)+" of 10 · Score "+qS+(qStreak>1?" · 🔥 "+qStreak+" in a row":"");$("qQ").textContent=q[0];$("qMsg").textContent="";qLock=false;
+  q[1].map((t,i)=>[t,i]).sort(()=>Math.random()-.5).forEach(([t,i])=>{const b=document.createElement("button");b.className="gbtn";b.style.cssText="display:block;width:100%";b.textContent=t;
+    if(i===q[2])b.dataset.c=1;
     b.onclick=()=>{if(qLock)return;qLock=true;
-      if(i===q[2]){qS++;b.style.background="var(--leaf)";$("qMsg").textContent="Correct! ✅"}
-      else{b.style.background="#777";o.children[q[2]].style.background="var(--leaf)";$("qMsg").textContent="Not quite"}
-      setTimeout(()=>{qI++;qShow()},1100)};o.appendChild(b)});
+      if(i===q[2]){qS++;qStreak++;b.style.background="var(--leaf)";$("qMsg").textContent=qStreak>2?"Correct! 🔥 Streak!":"Correct! ✅"}
+      else{qStreak=0;b.style.background="#777";const r=o.querySelector("[data-c]");if(r)r.style.background="var(--leaf)";$("qMsg").textContent="Not quite"}
+      setTimeout(()=>{qI++;qShow()},1200)};
+    o.appendChild(b)});
 }
-qShow();
+qNew();
 
-let M={t:null,n:0,left:0,c:null};
-function mSetup(c){clearInterval(M.t);M.t=null;M.c=c;M.n=0;$("eMt").textContent=c.name;$("eMh").textContent=c.hint;$("eMb").textContent=c.emoji;$("eMn").textContent=0;$("eMtime").textContent=10;$("eMr").textContent="Press Start, then tap like crazy!";$("eMgo").textContent="Start"}
-$("eMgo").onclick=()=>{clearInterval(M.t);M.n=0;M.left=10;$("eMn").textContent=0;$("eMtime").textContent=10;$("eMr").textContent="GO!";
-  M.t=setInterval(()=>{M.left--;$("eMtime").textContent=M.left;if(M.left<=0){clearInterval(M.t);M.t=null;$("eMr").textContent=M.n+" taps: "+M.c.ranks[Math.min(3,Math.floor(M.n/15))];$("eMgo").textContent="Again"}},1000)};
-$("eMb").onclick=()=>{if(M.t){M.n++;$("eMn").textContent=M.n}};
+/* ---------- CATCH ENGINE ---------- */
+let C={c:null,run:false,x:160,items:[],lives:3,s:0,combo:0,t:0,k:0,raf:0,last:0};
+const CV=$("eCc"),X=CV.getContext("2d");
+function cStop(){C.run=false;cancelAnimationFrame(C.raf);C.k=0}
+function cHud(){$("eCs").textContent=C.s;$("eCl").textContent=C.lives>0?"❤️".repeat(C.lives):"💀";$("eCb").textContent=bestGet("c"+C.c.id)}
+function cDraw(){X.clearRect(0,0,320,440);X.textAlign="center";X.font="30px serif";C.items.forEach(i=>X.fillText(i.g?C.c.good:C.c.bad,i.x,i.y));X.font="42px serif";X.fillText(C.c.emoji,C.x,424)}
+function cSetup(c){cStop();C.c=c;C.x=160;C.items=[];C.lives=3;C.s=0;$("eCt").textContent=c.name;$("eCh").textContent=c.hint;$("eCr").textContent="Drag, or use the ← → keys. Press Start!";$("eCgo").textContent="Start";cHud();cDraw()}
+function cLoop(now){
+  if(!C.run)return;
+  const dt=Math.min(.05,(now-C.last)/1000);C.last=now;C.t+=dt;
+  C.x=Math.max(22,Math.min(298,C.x+C.k*300*dt));
+  if(Math.random()<dt*(1.3+C.t/20))C.items.push({x:20+Math.random()*280,y:-20,g:Math.random()<.68,v:100+C.t*5+Math.random()*60});
+  C.items=C.items.filter(i=>{
+    i.y+=i.v*dt;
+    if(i.y>385&&i.y<430&&Math.abs(i.x-C.x)<36){if(i.g){C.combo++;C.s+=1+Math.floor(C.combo/5)}else{C.lives--;C.combo=0}cHud();return false}
+    if(i.y>450){if(i.g)C.combo=0;return false}
+    return true});
+  cDraw();
+  if(C.lives<=0){cStop();bestSet("c"+C.c.id,C.s);cHud();const r=C.c.ranks;$("eCr").textContent="Game over! "+C.s+" points · "+r[C.s<12?0:C.s<30?1:C.s<55?2:3];$("eCgo").textContent="Play again";return}
+  C.raf=requestAnimationFrame(cLoop)}
+$("eCgo").onclick=()=>{cStop();C.x=160;C.items=[];C.lives=3;C.s=0;C.combo=0;C.t=0;C.run=true;C.last=performance.now();$("eCr").textContent="Go! Combos add bonus points.";$("eCgo").textContent="Restart";cHud();C.raf=requestAnimationFrame(cLoop)};
+const cMove=e=>{const r=CV.getBoundingClientRect();C.x=Math.max(22,Math.min(298,(e.clientX-r.left)/r.width*320))};
+CV.addEventListener("pointermove",cMove);CV.addEventListener("pointerdown",cMove);
+addEventListener("keydown",e=>{if(!C.run)return;if(e.key==="ArrowLeft"){C.k=-1;e.preventDefault()}if(e.key==="ArrowRight"){C.k=1;e.preventDefault()}});
+addEventListener("keyup",e=>{if((e.key==="ArrowLeft"&&C.k<0)||(e.key==="ArrowRight"&&C.k>0))C.k=0});
 
-let W={c:null,t:null,p:null,left:0,s:0,cur:-1,good:true};
-function wStop(){clearInterval(W.t);clearInterval(W.p);W.t=W.p=null}
+let W={c:null,t:null,p:null,left:0,s:0,cur:-1,good:true,gold:false,combo:0};
+function wStop(){clearInterval(W.t);clearTimeout(W.p);W.t=W.p=null}
 function wDraw(){const g=$("eWg");g.innerHTML="";for(let i=0;i<9;i++){const b=document.createElement("button");b.className="cell";b.onclick=()=>wHit(i);g.appendChild(b)}}
-function wSetup(c){wStop();W.c=c;W.s=0;W.cur=-1;$("eWt").textContent=c.name;$("eWh").textContent=c.hint;$("eWs").textContent=0;$("eWtime").textContent=20;$("eWr").textContent="Press Start";$("eWgo").textContent="Start";wDraw()}
-function wHit(i){if(!W.t||i!==W.cur)return;W.s+=W.good?1:-2;$("eWs").textContent=W.s;$("eWr").textContent=W.good?W.c.yes:W.c.no;W.cur=-1;$("eWg").children[i].textContent=""}
-function wPop(){const k=$("eWg").children;if(W.cur>=0)k[W.cur].textContent="";W.cur=Math.floor(Math.random()*9);W.good=Math.random()<.7;k[W.cur].textContent=W.good?W.c.good:W.c.bad}
-$("eWgo").onclick=()=>{wStop();W.s=0;W.left=20;$("eWs").textContent=0;$("eWtime").textContent=20;$("eWr").textContent="Go!";
-  W.p=setInterval(wPop,750);
-  W.t=setInterval(()=>{W.left--;$("eWtime").textContent=W.left;if(W.left<=0){wStop();W.cur=-1;wDraw();$("eWr").textContent="Final: "+W.s+" · "+W.c.ranks[Math.max(0,Math.min(3,Math.floor(W.s/6)))];$("eWgo").textContent="Again"}},1000)};
+function wUp(){$("eWs").textContent=W.s;$("eWc").textContent=1+Math.floor(W.combo/4);$("eWtime").textContent=W.left}
+function wSetup(c){wStop();W.c=c;W.s=0;W.combo=0;W.left=25;W.cur=-1;$("eWt").textContent=c.name;$("eWh").textContent=c.hint+" Chain hits for combos and grab the 🌟 for 5×!";$("eWb").textContent=bestGet("w"+c.id);$("eWr").textContent="Press Start";$("eWgo").textContent="Start";wUp();wDraw()}
+function wHit(i){
+  if(!W.t||i!==W.cur)return;
+  if(W.good){W.combo++;W.s+=(W.gold?5:1)*(1+Math.floor(W.combo/4));$("eWr").textContent=W.gold?"⭐ Golden bonus!":W.c.yes}
+  else{W.combo=0;W.s=Math.max(0,W.s-3);$("eWr").textContent=W.c.no}
+  W.cur=-1;$("eWg").children[i].textContent="";wUp()}
+function wPop(){
+  const k=$("eWg").children;
+  if(W.cur>=0){k[W.cur].textContent="";if(W.good){W.combo=0;wUp()}}
+  W.cur=Math.floor(Math.random()*9);const r=Math.random();W.good=r<.72;W.gold=W.good&&r<.1;
+  k[W.cur].textContent=W.good?(W.gold?"🌟":W.c.good):W.c.bad;
+  W.p=setTimeout(wPop,Math.max(360,820-(25-W.left)*22))}
+$("eWgo").onclick=()=>{wStop();W.s=0;W.combo=0;W.left=25;wUp();wDraw();$("eWr").textContent="Go!";$("eWgo").textContent="Restart";wPop();
+  W.t=setInterval(()=>{W.left--;wUp();if(W.left<=0){wStop();W.cur=-1;wDraw();bestSet("w"+W.c.id,W.s);$("eWb").textContent=bestGet("w"+W.c.id);$("eWr").textContent="Final: "+W.s+" · "+W.c.ranks[Math.max(0,Math.min(3,Math.floor(W.s/10)))];$("eWgo").textContent="Again"}},1000)};
 
-let T={t:null,p:0,d:1,n:0,s:0,c:null};
+let T={t:null,p:0,d:1,n:0,s:0,st:0,c:null};
+const TN=8;
+function tBar(){const h=Math.max(3,9-T.n),o=26;$("eTbar").style.background="linear-gradient(90deg,#8a4b14 "+(50-o)+"%,#f4b92f "+(50-o)+"% "+(50-h)+"%,#1fa855 "+(50-h)+"% "+(50+h)+"%,#f4b92f "+(50+h)+"% "+(50+o)+"%,#8a4b14 "+(50+o)+"%)"}
+function tUp(){$("eTn").textContent=T.n;$("eTs").textContent=T.s;$("eTst").textContent=T.st}
 function tStop(){clearInterval(T.t);T.t=null}
-function tSetup(c){tStop();T.c=c;T.n=0;T.s=0;$("eTt").textContent=c.name;$("eTh").textContent=c.hint;$("eTn").textContent=0;$("eTs").textContent=0;$("eTr").textContent="Press Start";$("eTm").style.left="0%"}
-$("eTgo").onclick=()=>{tStop();T.p=0;T.d=1;T.n=0;T.s=0;$("eTn").textContent=0;$("eTs").textContent=0;$("eTr").textContent="Go!";
-  T.t=setInterval(()=>{T.p+=T.d*(1.4+T.n*0.4);if(T.p>=100){T.p=100;T.d=-1}else if(T.p<=0){T.p=0;T.d=1}$("eTm").style.left=T.p+"%"},16)};
+function tSetup(c){tStop();T.c=c;T.n=0;T.s=0;T.st=0;$("eTt").textContent=c.name;$("eTh").textContent=c.hint+" The green zone shrinks and the marker speeds up every round!";$("eTb2").textContent=bestGet("t"+c.id);$("eTr").textContent="Press Start";$("eTm").style.left="0%";tBar();tUp()}
+$("eTgo").onclick=()=>{tStop();T.p=0;T.d=1;T.n=0;T.s=0;T.st=0;tBar();tUp();$("eTr").textContent="Go!";
+  T.t=setInterval(()=>{T.p+=T.d*(1.5+T.n*0.35);if(T.p>=100){T.p=100;T.d=-1}else if(T.p<=0){T.p=0;T.d=1}$("eTm").style.left=T.p+"%"},16)};
 $("eTb").onclick=()=>{
-  if(!T.t)return;const d=Math.abs(T.p-50),c=T.c;let m;
-  if(d<8){T.s+=3;m=c.perfect}else if(d<25){T.s+=1;m=c.ok}else m=T.p<50?c.low:c.high;
-  T.n++;$("eTn").textContent=T.n;$("eTs").textContent=T.s;
-  if(T.n>=5){tStop();m+=" · Final "+T.s+"/15: "+c.ranks[T.s<4?0:T.s<8?1:T.s<12?2:3]}
+  if(!T.t)return;const d=Math.abs(T.p-50),h=Math.max(3,9-T.n),c=T.c;let m,pts;
+  if(d<=h){T.st++;pts=100+20*(T.st-1);m=c.perfect+" +"+pts}
+  else if(d<26){T.st=0;pts=Math.round(60*(1-(d-h)/(26-h)));m=c.ok+" +"+pts}
+  else{T.st=0;pts=0;m=T.p<50?c.low:c.high}
+  T.s+=pts;T.n++;tUp();tBar();
+  if(T.n>=TN){tStop();bestSet("t"+c.id,T.s);$("eTb2").textContent=bestGet("t"+c.id);m+=" · Final "+T.s+": "+c.ranks[T.s<200?0:T.s<400?1:T.s<650?2:3]}
   $("eTr").textContent=m};
 
-let R={st:"idle",to:null,t0:0};
-function rSetup(c){clearTimeout(R.to);R.st="idle";$("eRt").textContent=c.name;$("eRh").textContent=c.hint;$("eRb").style.background="var(--velvet)";$("eRb").textContent="Tap to start"}
+let R={st:"idle",to:null,t0:0,times:[]};
+function rSetup(c){clearTimeout(R.to);R.st="idle";R.times=[];$("eRt").textContent=c.name;$("eRh").textContent=c.hint+" 5 rounds, and we average your time.";const b=$("eRb");b.style.background="var(--velvet)";b.textContent="Tap to start round 1"}
 $("eRb").onclick=()=>{
-  const b=$("eRb");
-  if(R.st==="idle"){R.st="wait";b.style.background="#d33";b.textContent="🚪 Doors still closed… wait for it";
-    R.to=setTimeout(()=>{R.st="go";b.style.background="#1fa855";b.textContent="🥘 THE KUGEL IS OUT! TAP!";R.t0=performance.now()},1200+Math.random()*2500)}
-  else if(R.st==="wait"){clearTimeout(R.to);R.st="idle";b.style.background="var(--velvet)";b.textContent="Too early! The door was still closed 🚪 Tap to retry"}
-  else{const ms=Math.round(performance.now()-R.t0);R.st="idle";b.style.background="var(--velvet)";
-    b.textContent=ms+" ms · "+(ms<250?"Front of the line! 🏆":ms<400?"You got a plate 🍽️":ms<700?"Cake’s gone, only herring left 🐟":"Kiddush is over. Everyone went home 🚪")+" (tap to retry)"}
+  const b=$("eRb"),n=R.times.length+1;
+  if(R.st==="idle"){R.st="wait";b.style.background="#d33";b.textContent="Round "+n+"/5 · 🚪 Doors still closed… wait for it";
+    R.to=setTimeout(()=>{R.st="go";b.style.background="#1fa855";b.textContent="🥘 THE KUGEL IS OUT! TAP!";R.t0=performance.now()},1200+Math.random()*2800)}
+  else if(R.st==="wait"){clearTimeout(R.to);R.st="idle";b.style.background="var(--velvet)";b.textContent="Too early! 🚪 The door was still closed. Tap to redo round "+n}
+  else{const ms=Math.round(performance.now()-R.t0);R.times.push(ms);R.st="idle";b.style.background="var(--velvet)";
+    if(R.times.length>=5){const a=Math.round(R.times.reduce((x,y)=>x+y)/5);R.times=[];
+      b.textContent="Average "+a+" ms · "+(a<260?"Front of the line! 🏆":a<400?"You got a plate 🍽️":a<700?"Cake’s gone, only herring left 🐟":"Kiddush is over. Everyone went home 🚪")+" · Tap to play again"}
+    else b.textContent=ms+" ms · tap for round "+(R.times.length+1)}
 };
-function eStop(){clearInterval(M.t);M.t=null;wStop();tStop();clearTimeout(R.to);R.st="idle"}
+function eStop(){cStop();wStop();tStop();clearTimeout(R.to);R.st="idle"}
 
 const modal=$("gmodal");
+let cur="";
 function openGame(id){
-  const x=G.find(g=>g.id===id);if(!x)return;
+  const x=G.find(g=>g.id===id);if(!x)return;cur=id;
   eStop();
-  ["dreidel","latke","memory","trivia","eM","eW","eT","eR"].forEach(s=>$(s).classList.toggle("hide",s!==(x.e?"e"+x.e:id)));
-  if(x.e==="M")mSetup(x);else if(x.e==="W")wSetup(x);else if(x.e==="T")tSetup(x);else if(x.e==="R")rSetup(x);
-  modal.hidden=false;
+  ["dreidel","memory","trivia","eC","eW","eT","eR"].forEach(s=>$(s).classList.toggle("hide",s!==(x.e?"e"+x.e:id)));
+  if(x.e==="C")cSetup(x);else if(x.e==="W")wSetup(x);else if(x.e==="T")tSetup(x);else if(x.e==="R")rSetup(x);
+  $("hubh").hidden=true;grid.hidden=true;document.body.classList.add("ingame");modal.hidden=false;document.title=x.name+" · Torah Games";scrollTo(0,0);
 }
-function closeGame(){lStop();eStop();modal.hidden=true;try{history.replaceState(null,"",HUB)}catch(e){}}
-$("gclose").onclick=closeGame;
-modal.addEventListener("click",e=>{if(e.target===modal)closeGame()});
-addEventListener("keydown",e=>{if(e.key==="Escape"&&!modal.hidden)closeGame()});
+function closeGame(){cur="";eStop();document.body.classList.remove("ingame");modal.hidden=true;$("hubh").hidden=false;grid.hidden=false;document.title="Torah Games"}
+$("gclose").onclick=()=>{closeGame();try{location.hash=""}catch(e){}};
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!modal.hidden){closeGame();try{location.hash=""}catch(_){}}});
 grid.addEventListener("click",e=>{
   const b=e.target.closest("[data-copy]");if(b){copy(b.dataset.copy);return}
-  const o=e.target.closest("[data-open]");if(o){e.preventDefault();try{history.replaceState(null,"",HUB+"#"+o.dataset.open)}catch(_){}openGame(o.dataset.open)}
+  const o=e.target.closest("[data-open]");if(o){e.preventDefault();openGame(o.dataset.open);try{location.hash=o.dataset.open}catch(_){}}
 });
-function route(){const h=location.hash.slice(1);if(h)openGame(h);else if(!modal.hidden)closeGame()}
+function route(){const h=location.hash.slice(1);if(h){if(h!==cur)openGame(h)}else if(!modal.hidden)closeGame()}
 addEventListener("hashchange",route);route();
 document.getElementById('hubCopy').onclick=()=>copy(HUB);
 })();
